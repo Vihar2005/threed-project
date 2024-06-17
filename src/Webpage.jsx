@@ -7,39 +7,109 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
-
-
 import './navbar.css'
 
 
 const Webpage = () => {
     const [data, setData] = useState([])
     const [catData, setCatData] = useState([])
-    const [search,setSearch] = useState("")
-    useEffect(() => {
-        axios('https://fakestoreapi.com/products')
+    const [search, setSearch] = useState("")
+    const fetchData = () => {
+        axios.get('https://fakestoreapi.com/products')
             .then((res) => {
                 setData(res.data)
             })
             .catch((err) => console.log(err))
+    }
+    useEffect(() => {
+        fetchData()
 
-        axios('https://fakestoreapi.com/products/categories')
+        axios.get('https://fakestoreapi.com/products/categories')
             .then((res) => {
                 setCatData(res.data)
             })
             .catch((err) => console.log(err))
-    })
+    }, [])
 
-    const searchTitle = (e) =>{
+    const searchTitle = (e) => {
         setSearch(e.target.value)
         console.log(search);
-        let data1 = data.filter((i)=>{
-            if(i.title.includes(search)){
-                return i;
-            }
-        })
-        console.log(data1);
-        setData(data1)
+        if (search != '') {
+            let data1 = data.filter((i) => {
+                if (i.title.includes(search)) {
+                    return i;
+                }
+            })
+            console.log(data1);
+            setData(data1)
+        } else {
+            fetchData()
+        }
+    }
+    const getCategory = (e) => {
+        console.log(e.target.value);
+        let cat = e.target.value
+        if (cat !== '') {
+            axios.get('https://fakestoreapi.com/products/category/' + cat)
+                .then((res) => {
+                    setData(res.data)
+                })
+        }
+        else {
+            fetchData();
+        }
+        // console.log(cat);
+        // data = useUrl('https://fakestoreapi.com/products/category'+cat)
+    }
+    const ShowAll = (e) => {
+        fetchData(e)
+    }
+    const Electronics = (e) => {
+        axios.get('https://fakestoreapi.com/products/category/electronics')
+            .then((res) => {
+                setData(res.data)
+            })
+            .catch((err) => console.log(err))
+    }
+    const Jewelery = (e) => {
+        axios.get('https://fakestoreapi.com/products/category/jewelery')
+            .then((res) => {
+                setData(res.data)
+            })
+            .catch((err) => console.log(err))
+    }
+    const MenClothing = (e) => {
+        axios.get("https://fakestoreapi.com/products/category/men's clothing")
+            .then((res) => {
+                setData(res.data)
+            })
+            .catch((err) => console.log(err))
+    }
+    const WomenClothing = (e) => {
+        axios.get("https://fakestoreapi.com/products/category/women's clothing")
+            .then((res) => {
+                setData(res.data)
+            })
+            .catch((err) => console.log(err))
+    }
+
+    const getPriceOrder = (e) => {
+        let order = e.target.value
+        let sortedData = [...data];
+        if (order == 1) {
+            sortedData.sort((a, b) => {
+                return a.price - b.price
+            })
+
+        } else if (order == 2) {
+            sortedData.sort((a, b) => {
+                return b.price - a.price
+            })
+
+        } else {
+            fetchData()
+        }
+        setData(sortedData)
     }
 
     // console.log(data); 
@@ -143,23 +213,30 @@ const Webpage = () => {
             <div className="button-click">
                 <Container>
                     <div className='button-wi'>
-                        <Button variant="primary">Show All</Button>{' '}
-                        <Button variant="secondary">electronics</Button>{' '}
-                        <Button variant="secondary">jewelery</Button>{' '}
-                        <Button variant="secondary">men's clothing</Button>{' '}
-                        <Button variant="secondary">women's clothing</Button>{' '}
-                        
-                        <input type="search" name="search" placeholder='Search by Title' className='abc' onKeyUp={searchTitle} />
+                        <Button variant="primary" onClick={ShowAll}>Show All</Button>{' '}
+                        <Button variant="secondary" onClick={Electronics}>electronics</Button>{' '}
+                        <Button variant="secondary" onClick={Jewelery}>jewelery</Button>{' '}
+                        <Button variant="secondary" onClick={MenClothing}>men's clothing</Button>{' '}
+                        <Button variant="secondary" onClick={WomenClothing}>women's clothing</Button>{' '}
 
-                        <select name="category">
-                            <option>--Select Category--</option>
+
+                        <select name="category" onChange={getCategory}>
+                            <option value=''>--Select Category--</option>
                             {
                                 catData && catData.map((i) => {
-                                    return(<option>{i}</option>)
+                                    return (<option value={i}>{i}</option>)
                                 })
                             }
                         </select>
-                            
+
+                        <input type="search" name="search" placeholder='Search by Title' className='abc' onKeyUp={searchTitle} />
+
+                        <select name="priceorder" onChange={getPriceOrder}>
+                            <option value="">--Select order--</option>
+                            <option value="1">Asc</option>
+                            <option value="2">desc</option>
+                        </select>
+
                     </div>
                 </Container>
             </div>
@@ -168,16 +245,7 @@ const Webpage = () => {
             <div className="product-card">
                 <Container>
                     <h2>Popular Products</h2><br />
-                    {/* <div className='product-cards'> */}
-                    {/* <Card style={{ width: '18rem' }}>
-                            <Card.Img variant="top" src="../image/p1.jpg" />
-                            <Card.Body>
-                                <Card.Title>Organic Frozen Triple Berry Blend</Card.Title>
-                                <Card.Text>
-                                    RM19.90
-                                </Card.Text>
-                            </Card.Body>
-                        </Card> */}
+
                     {
                         data && data.map((i) => {
                             return (
@@ -200,7 +268,7 @@ const Webpage = () => {
                         })
                     }
                     {/* </div> */}
-                   
+
                 </Container>
             </div>
         </div>
