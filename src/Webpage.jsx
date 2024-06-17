@@ -1,0 +1,211 @@
+import React, { useEffect, useState } from 'react'
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import axios from 'axios';
+
+
+import './navbar.css'
+
+
+const Webpage = () => {
+    const [data, setData] = useState([])
+    const [catData, setCatData] = useState([])
+    const [search,setSearch] = useState("")
+    useEffect(() => {
+        axios('https://fakestoreapi.com/products')
+            .then((res) => {
+                setData(res.data)
+            })
+            .catch((err) => console.log(err))
+
+        axios('https://fakestoreapi.com/products/categories')
+            .then((res) => {
+                setCatData(res.data)
+            })
+            .catch((err) => console.log(err))
+    })
+
+    const searchTitle = (e) =>{
+        setSearch(e.target.value)
+        console.log(search);
+        let data1 = data.filter((i)=>{
+            if(i.title.includes(search)){
+                return i;
+            }
+        })
+        console.log(data1);
+        setData(data1)
+    }
+
+    // console.log(data); 
+    return (
+        <div>
+            {/* <img src="../image/nest.png" alt="" /> */}
+            <div className="navbar">
+                <Navbar expand="lg" className="bg-body-tertiary">
+                    <Container>
+                        <Navbar.Brand href="#home"><img src="../image/nest.png" alt="" /></Navbar.Brand>
+                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                        <Navbar.Collapse id="basic-navbar-nav">
+                            {/* <Nav className="me-auto">
+                                <Nav.Link href="#home">Home</Nav.Link>
+                                <Nav.Link href="#link">Link</Nav.Link>
+                            </Nav> */}
+                        </Navbar.Collapse>
+
+                        <NavDropdown title="Select-Language" id="basic-nav-dropdown">
+                            <NavDropdown.Item href="#action/3.1">Gujrati</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.2">English</NavDropdown.Item>
+                            <NavDropdown.Item href="#action/3.3">Hindi</NavDropdown.Item>
+                        </NavDropdown>
+                        {/* <Form inline>
+                            <Row>
+                                <Col xs="auto">
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Search"
+                                        className=" mr-sm-2"
+                                    />
+                                </Col>
+                            </Row>
+                        </Form> */}
+                        <Nav className="me-auto">
+                            <Nav.Link href="#home">Search</Nav.Link>
+                            <Nav.Link href="#link">Cart</Nav.Link>
+                        </Nav>
+                    </Container>
+                </Navbar>
+            </div>
+            <div className='main-img'>
+                {/* <Navbar expand="lg" className="bg-body-tertiary"> */}
+                <Container className='backimg'>
+                    <img src="../image/main-img.jpg" alt="" />
+                </Container>
+                {/* </Navbar> */}
+            </div>
+            <br /><br />
+            <div className="text-menu">
+                <Container>
+                    <h1>Nest Mart & Grocery</h1>
+                    <h3>Everyday Fresh & Clean with Our Products</h3>
+                </Container>
+            </div>
+            <br />
+            <br />
+
+            <div className="card-menu">
+                <Container>
+                    <div className='cards-wi'>
+                        <Card className="bg-dark text-white">
+                            <Card.Img src="../image/img-1.png" alt="Card image" />
+                            <Card.ImgOverlay>
+                                <Card.Text className='text-color'>
+                                    Everyday Fresh & Clean with Our Products
+                                </Card.Text>
+                                <Button variant="success">SHOP NOW</Button>{' '}
+                            </Card.ImgOverlay>
+                        </Card>
+
+                    </div>
+                    <div className='cards-wi'>
+                        <Card className="bg-dark text-white">
+                            <Card.Img src="../image/img-2.png" alt="Card image" />
+                            <Card.ImgOverlay>
+
+                                <Card.Text className='text-color'>
+                                    Make your Breakfast Healthy and Easy
+                                </Card.Text>
+                                <Button variant="success">SHOP NOW</Button>{' '}
+                            </Card.ImgOverlay>
+                        </Card>
+
+                    </div>
+                    <div className='cards-wi'>
+                        <Card className="bg-dark text-white">
+                            <Card.Img src="../image/img-3.png" alt="Card image" />
+                            <Card.ImgOverlay>
+
+                                <Card.Text className='text-color'>
+                                    The best Organic Products Online
+                                </Card.Text>
+                                <Button variant="success">SHOP NOW</Button>{' '}
+                            </Card.ImgOverlay>
+                        </Card>
+                    </div>
+                </Container>
+            </div>
+            <br /><br />
+            <div className="button-click">
+                <Container>
+                    <div className='button-wi'>
+                        <Button variant="primary">Show All</Button>{' '}
+                        <Button variant="secondary">electronics</Button>{' '}
+                        <Button variant="secondary">jewelery</Button>{' '}
+                        <Button variant="secondary">men's clothing</Button>{' '}
+                        <Button variant="secondary">women's clothing</Button>{' '}
+                        
+                        <input type="search" name="search" placeholder='Search by Title' className='abc' onKeyUp={searchTitle} />
+
+                        <select name="category">
+                            <option>--Select Category--</option>
+                            {
+                                catData && catData.map((i) => {
+                                    return(<option>{i}</option>)
+                                })
+                            }
+                        </select>
+                            
+                    </div>
+                </Container>
+            </div>
+            <br />
+            <br />
+            <div className="product-card">
+                <Container>
+                    <h2>Popular Products</h2><br />
+                    {/* <div className='product-cards'> */}
+                    {/* <Card style={{ width: '18rem' }}>
+                            <Card.Img variant="top" src="../image/p1.jpg" />
+                            <Card.Body>
+                                <Card.Title>Organic Frozen Triple Berry Blend</Card.Title>
+                                <Card.Text>
+                                    RM19.90
+                                </Card.Text>
+                            </Card.Body>
+                        </Card> */}
+                    {
+                        data && data.map((i) => {
+                            return (
+                                <div className='product-cards'>
+                                    <Card style={{ width: '20rem', height: '380px', margin: '10px 2px' }}>
+                                        <Card.Body>
+                                            <Card.Img variant="top" src={i.image} style={{ height: '190px' }} />
+
+                                            <Card.Title>{i.title}</Card.Title>
+                                            <Card.Text>
+                                                Category: {i.category}
+                                            </Card.Text>
+                                            <Card.Text>
+                                                Price: {i.price}
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </div>
+                            )
+                        })
+                    }
+                    {/* </div> */}
+                   
+                </Container>
+            </div>
+        </div>
+    )
+}
+
+export default Webpage
+
