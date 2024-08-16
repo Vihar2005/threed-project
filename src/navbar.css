@@ -1,42 +1,39 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
-.navbar{
+
+.navbar {
     display: block;
-    
-    /* justify-content: center; */
 }
-.backimg{
+
+.backimg {
     margin: 0 auto;
 }
-.backimg img{
+
+.backimg img {
     width: 100%;
 }
 
-.cards-wi{
+.cards-wi {
     width: 25%;
     display: inline-block;
-    /* margin: 0 50px 0 0; */
     margin: 0 50px;
-    /* align-items: center; */
 }
-.text-color{
+
+.text-color {
     color: rgb(128, 128, 122);
     font-size: 25px;
 }
 
-.button-wi button{
+.button-wi button {
     margin: 0 8px;
 }
-.button-wi .abc{
+
+.button-wi .abc {
     margin: 0 15px;
 }
 
-.product-cards{
+.product-cards {
     display: inline-block;
-    /* margin: 0 10px; */ 
 }
-
-
-
