@@ -9,7 +9,6 @@ import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import './navbar.css'
 
-
 const Webpage = () => {
     const [data, setData] = useState([])
     const [catData, setCatData] = useState([])
@@ -30,7 +29,6 @@ const Webpage = () => {
             })
             .catch((err) => console.log(err))
     }, [])
-
     const searchTitle = (e) => {
         setSearch(e.target.value)
         console.log(search);
@@ -58,8 +56,6 @@ const Webpage = () => {
         else {
             fetchData();
         }
-        // console.log(cat);
-        // data = useUrl('https://fakestoreapi.com/products/category'+cat)
     }
     const ShowAll = (e) => {
         fetchData(e)
@@ -92,7 +88,6 @@ const Webpage = () => {
             })
             .catch((err) => console.log(err))
     }
-
     const getPriceOrder = (e) => {
         let order = e.target.value
         let sortedData = [...data];
@@ -111,39 +106,20 @@ const Webpage = () => {
         }
         setData(sortedData)
     }
-
-    // console.log(data); 
     return (
         <div>
-            {/* <img src="../image/nest.png" alt="" /> */}
             <div className="navbar">
                 <Navbar expand="lg" className="bg-body-tertiary">
                     <Container>
                         <Navbar.Brand href="#home"><img src="../image/nest.png" alt="" /></Navbar.Brand>
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
-                            {/* <Nav className="me-auto">
-                                <Nav.Link href="#home">Home</Nav.Link>
-                                <Nav.Link href="#link">Link</Nav.Link>
-                            </Nav> */}
                         </Navbar.Collapse>
-
                         <NavDropdown title="Select-Language" id="basic-nav-dropdown">
                             <NavDropdown.Item href="#action/3.1">Gujrati</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.2">English</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.3">Hindi</NavDropdown.Item>
                         </NavDropdown>
-                        {/* <Form inline>
-                            <Row>
-                                <Col xs="auto">
-                                    <Form.Control
-                                        type="text"
-                                        placeholder="Search"
-                                        className=" mr-sm-2"
-                                    />
-                                </Col>
-                            </Row>
-                        </Form> */}
                         <Nav className="me-auto">
                             <Nav.Link href="#home">Search</Nav.Link>
                             <Nav.Link href="#link">Cart</Nav.Link>
@@ -152,11 +128,9 @@ const Webpage = () => {
                 </Navbar>
             </div>
             <div className='main-img'>
-                {/* <Navbar expand="lg" className="bg-body-tertiary"> */}
                 <Container className='backimg'>
                     <img src="../image/main-img.jpg" alt="" />
                 </Container>
-                {/* </Navbar> */}
             </div>
             <br /><br />
             <div className="text-menu">
@@ -165,9 +139,7 @@ const Webpage = () => {
                     <h3>Everyday Fresh & Clean with Our Products</h3>
                 </Container>
             </div>
-            <br />
-            <br />
-
+            <br /> <br />
             <div className="card-menu">
                 <Container>
                     <div className='cards-wi'>
@@ -180,7 +152,6 @@ const Webpage = () => {
                                 <Button variant="success">SHOP NOW</Button>{' '}
                             </Card.ImgOverlay>
                         </Card>
-
                     </div>
                     <div className='cards-wi'>
                         <Card className="bg-dark text-white">
@@ -193,7 +164,6 @@ const Webpage = () => {
                                 <Button variant="success">SHOP NOW</Button>{' '}
                             </Card.ImgOverlay>
                         </Card>
-
                     </div>
                     <div className='cards-wi'>
                         <Card className="bg-dark text-white">
@@ -219,7 +189,6 @@ const Webpage = () => {
                         <Button variant="secondary" onClick={MenClothing}>men's clothing</Button>{' '}
                         <Button variant="secondary" onClick={WomenClothing}>women's clothing</Button>{' '}
 
-
                         <select name="category" onChange={getCategory}>
                             <option value=''>--Select Category--</option>
                             {
@@ -240,12 +209,10 @@ const Webpage = () => {
                     </div>
                 </Container>
             </div>
-            <br />
-            <br />
+            <br /><br />
             <div className="product-card">
                 <Container>
                     <h2>Popular Products</h2><br />
-
                     {
                         data && data.map((i) => {
                             return (
@@ -267,8 +234,6 @@ const Webpage = () => {
                             )
                         })
                     }
-                    {/* </div> */}
-
                 </Container>
             </div>
         </div>
