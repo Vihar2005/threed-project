@@ -8,7 +8,11 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import './navbar.css'
-
+import img1 from '../image/img-1.png'
+import img2 from '../image/img-2.png'
+import img3 from '../image/img-3.png'
+import main from '../image/main-img.jpg'
+import nest from '../image/nest.png'
 const Webpage = () => {
     const [data, setData] = useState([])
     const [catData, setCatData] = useState([])
@@ -111,7 +115,7 @@ const Webpage = () => {
             <div className="navbar">
                 <Navbar expand="lg" className="bg-body-tertiary">
                     <Container>
-                        <Navbar.Brand href="#home"><img src="../image/nest.png" alt="" /></Navbar.Brand>
+                        <Navbar.Brand href="#home"><img src={nest} alt="" /></Navbar.Brand>
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
                         </Navbar.Collapse>
@@ -129,7 +133,7 @@ const Webpage = () => {
             </div>
             <div className='main-img'>
                 <Container className='backimg'>
-                    <img src="../image/main-img.jpg" alt="" />
+                    <img src={main} alt="" />
                 </Container>
             </div>
             <br /><br />
@@ -144,7 +148,7 @@ const Webpage = () => {
                 <Container>
                     <div className='cards-wi'>
                         <Card className="bg-dark text-white">
-                            <Card.Img src="../image/img-1.png" alt="Card image" />
+                            <Card.Img src={img1} alt="Card image" />
                             <Card.ImgOverlay>
                                 <Card.Text className='text-color'>
                                     Everyday Fresh & Clean with Our Products
@@ -155,7 +159,7 @@ const Webpage = () => {
                     </div>
                     <div className='cards-wi'>
                         <Card className="bg-dark text-white">
-                            <Card.Img src="../image/img-2.png" alt="Card image" />
+                            <Card.Img src={img2} alt="Card image" />
                             <Card.ImgOverlay>
 
                                 <Card.Text className='text-color'>
@@ -167,7 +171,7 @@ const Webpage = () => {
                     </div>
                     <div className='cards-wi'>
                         <Card className="bg-dark text-white">
-                            <Card.Img src="../image/img-3.png" alt="Card image" />
+                            <Card.Img src={img3} alt="Card image" />
                             <Card.ImgOverlay>
 
                                 <Card.Text className='text-color'>
